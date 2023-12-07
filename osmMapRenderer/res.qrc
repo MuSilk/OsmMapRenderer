@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/textures">
+        <file>res/textures/diamond.png</file>
+        <file>res/textures/stone.png</file>
+    </qresource>
+    <qresource prefix="/shaders">
+        <file>res/shaders/sprite.frag</file>
+        <file>res/shaders/sprite.vert</file>
+        <file>res/shaders/polygon.frag</file>
+        <file>res/shaders/polygon.vert</file>
+        <file>res/shaders/cube.frag</file>
+        <file>res/shaders/cube.vert</file>
+        <file>res/shaders/prism.frag</file>
+        <file>res/shaders/prism.vert</file>
+        <file>res/shaders/text.frag</file>
+        <file>res/shaders/text.vert</file>
+    </qresource>
+    <qresource prefix="/xml">
+        <file>res/xml/map.xml</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>res/icons/icon.ico</file>
+    </qresource>
+</RCC>
