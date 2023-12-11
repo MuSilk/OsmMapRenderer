@@ -14,8 +14,23 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     //ui->openGLWidget->grabKeyboard();
     connect(ui->search,&QPushButton::clicked,this,&MainWindow::Search);
-    connect(ui->actionopen,&QAction::triggered,this,&MainWindow::OpenFile);
-    connect(ui->set3D,&QAction::triggered,this,&MainWindow::Set3D);
+    connect(ui->actionopen,&QAction::triggered,this,[&](){
+        QString str=QFileDialog::getOpenFileName(this,"Open File",
+                    QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
+                    "xml 文件(*.xml *.osm);");
+        if(str!="")ui->openGLWidget->LoadFile(str.toStdString().c_str());
+    });
+    connect(ui->set3D,&QAction::triggered,this,[&](){
+        ui->openGLWidget->Map._3D=ui->set3D->isChecked();
+        ui->openGLWidget->update();
+    });
+    connect(ui->setbuilding,&QAction::triggered,this,[&](){
+        ui->openGLWidget->Map._building=ui->setbuilding->isChecked();
+        ui->openGLWidget->update();
+    });
+    connect(ui->actionmove3D,&QAction::triggered,this,[&](){
+        ui->openGLWidget->ChangeCameraMode(ui->actionmove3D->isChecked());
+    });
 }
 
 MainWindow::~MainWindow()
@@ -51,23 +66,7 @@ void MainWindow::Search(){
     }
 }
 
-void MainWindow::Set(){
-
-}
-
-void MainWindow::Set3D(){
-    ui->openGLWidget->Map._3D=ui->set3D->isChecked();
-    ui->openGLWidget->update();
-}
-
 void MainWindow::resizeEvent(QResizeEvent *event){
     ui->openGLWidget->resize(event->size());
     qDebug()<<event->size()<<"\n";
-}
-
-
-void MainWindow::OpenFile(){
-    QString str=QFileDialog::getOpenFileName(this,"Open File",QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation),
-                                               "xml 文件(*.xml *.osm);");
-    if(str!="")ui->openGLWidget->LoadFile(str.toStdString().c_str());
 }

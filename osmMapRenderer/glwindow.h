@@ -33,6 +33,7 @@ public:
     //    staticSpritePrismRenderer* PrimRenderer;
     TextRenderer* textRenderer;
     Camera camera;
+    bool _cameramode=false;
     ObjectMap3D Map;
     GLWindow(QWidget *parent=nullptr);
     ~GLWindow();
@@ -46,6 +47,8 @@ protected:
     void keyPressEvent(QKeyEvent *event)override;
     void keyReleaseEvent(QKeyEvent *event)override;
     void wheelEvent(QWheelEvent *event)override;
+public:
+    void ChangeCameraMode(bool mode);
 private:
     void LoadShaders();
     void LoadTextures();

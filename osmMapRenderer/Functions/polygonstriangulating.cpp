@@ -1,6 +1,5 @@
 #include "polygonstriangulating.h"
 
-#include <iostream>
 #include <deque>
 
 int PolygonsTriangulating::n;

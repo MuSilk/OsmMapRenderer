@@ -45,6 +45,15 @@ void xmlReader::LoadFile(const char* path){
         for (; childNode; childNode = childNode->NextSiblingElement("nd")) {
             long long ref = stoll(childNode->Attribute("ref"));
             way.nodes.push_back(nodes[ref]);
+
+            way.minlon=fmin(way.minlon,nodes[ref].lon);
+            way.minlat=fmin(way.minlat,nodes[ref].lat);
+            way.normalized_minlon=fmin(way.normalized_minlon,nodes[ref].normalized_lon);
+            way.normalized_minlat=fmin(way.normalized_minlat,nodes[ref].normalized_lat);
+            way.maxlon=fmax(way.maxlon,nodes[ref].lon);
+            way.maxlat=fmax(way.maxlat,nodes[ref].lat);
+            way.normalized_maxlon=fmax(way.normalized_maxlon,nodes[ref].normalized_lon);
+            way.normalized_maxlat=fmax(way.normalized_maxlat,nodes[ref].normalized_lat);
         }
         TiXmlElement* childTag = wayElement->FirstChildElement("tag");
         for (; childTag; childTag = childTag->NextSiblingElement("tag")) {

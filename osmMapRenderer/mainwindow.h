@@ -15,9 +15,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private slots:
-    void OpenFile();
-    void Set();
-    void Set3D();
     void Search();
 protected:
     void resizeEvent(QResizeEvent *event) override;

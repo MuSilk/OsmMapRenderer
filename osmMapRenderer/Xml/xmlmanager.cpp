@@ -12,7 +12,7 @@ void xmlManager::LoadFile(const char* path){
     for(auto &i:ways){
         if(i.second.tags.find("name")!=i.second.tags.end()){
             table[i.second.tags["name"]]=i.first;
-            std::cout<<i.second.tags["name"]<<std::endl;
+            //std::cout<<i.second.tags["name"]<<std::endl;
         }
         if(i.second.tags.find("highway")!=i.second.tags.end()){
             for(size_t j=0;j<i.second.nodes.size()-1;j++)graph.insertPath(i.second.nodes[j],i.second.nodes[j+1]);

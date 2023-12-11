@@ -1,7 +1,5 @@
 #include "objectmap.h"
 
-#include <iostream>
-
 ObjectMap::ObjectMap(){
 }
 

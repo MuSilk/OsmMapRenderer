@@ -16,6 +16,8 @@ public:
     std::vector<Node> nodes;
     Node AveNode;
     std::map<string,string> tags;
+    double minlon,minlat,maxlon,maxlat;
+    double normalized_minlon,normalized_minlat,normalized_maxlon,normalized_maxlat;
 
     friend std::ostream& operator<<(std::ostream& out,const Way& way){
         out << "Way id:" << way.id << std::endl;

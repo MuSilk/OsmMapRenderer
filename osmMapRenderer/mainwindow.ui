@@ -114,6 +114,7 @@
      <string>设置</string>
     </property>
     <addaction name="set3D"/>
+    <addaction name="setbuilding"/>
    </widget>
    <widget class="QMenu" name="menu">
     <property name="title">
@@ -121,8 +122,23 @@
     </property>
     <addaction name="actionopen"/>
    </widget>
+   <widget class="QMenu" name="view">
+    <property name="geometry">
+     <rect>
+      <x>415</x>
+      <y>96</y>
+      <width>105</width>
+      <height>66</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>视图</string>
+    </property>
+    <addaction name="actionmove3D"/>
+   </widget>
    <addaction name="menu"/>
    <addaction name="set"/>
+   <addaction name="view"/>
   </widget>
   <action name="actionopen">
    <property name="text">
@@ -143,12 +159,26 @@
     <string>3D</string>
    </property>
   </action>
-  <action name="actiontest">
-   <property name="text">
-    <string>test</string>
+  <action name="setbuilding">
+   <property name="checkable">
+    <bool>true</bool>
    </property>
-   <property name="menuRole">
-    <enum>QAction::NoRole</enum>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>建筑渲染</string>
+   </property>
+  </action>
+  <action name="actionmove3D">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>漫游模式</string>
    </property>
   </action>
  </widget>

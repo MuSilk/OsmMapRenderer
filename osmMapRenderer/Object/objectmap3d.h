@@ -16,6 +16,7 @@ class ObjectMap3D
 public:
     QVector3D Position,Size;
     bool _3D=true;
+    bool _building=true;
     bool _renderpath=false;
     ObjectMap3D();
     ~ObjectMap3D();

@@ -1,6 +1,9 @@
 #include "objectmap3d.h"
 
-ObjectMap3D::ObjectMap3D(){}
+ObjectMap3D::ObjectMap3D(){
+    PathRenderer=nullptr;
+    shader=nullptr;
+}
 
 ObjectMap3D::~ObjectMap3D(){
     for(auto &i:BuildingGroup)delete i;
@@ -24,7 +27,9 @@ void ObjectMap3D::Load(const char* file,Shader shader,QVector3D pos,QVector3D si
     Size=size;
     FileName=file;
     Changed=true;
+    delete this->shader;
     this->shader=new Shader(shader);
+    _renderpath=false;
     if(PathRenderer==nullptr)PathRenderer=new DynamicSpriteLineStripPlaneRenderer(shader,QVector3D(0.0,0.0,1.0));
 }
 
@@ -81,7 +86,7 @@ void ObjectMap3D::Render(Camera& camera,QMatrix4x4 projection){
     if(Changed)LoadData(),Changed=false;
     for(auto i:PlaneGroup)i->Draw(Position,Size,camera,projection);
     for(auto i:WayGroup)i->Draw(Position+QVector3D(0,0,0.0004),Size,camera,projection);
-    for(auto i:BuildingGroup)i->Draw(Position+QVector3D(0,0,0.0004),Size,camera,projection,_3D);
+    if(_building)for(auto i:BuildingGroup)i->Draw(Position+QVector3D(0,0,0.0004),Size,camera,projection,_3D);
 
     if(_renderpath)PathRenderer->Draw(Position+QVector3D(0,0,0.0005),Size,camera,projection);
 }

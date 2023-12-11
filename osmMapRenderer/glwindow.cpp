@@ -60,7 +60,7 @@ void GLWindow::mouseMoveEvent(QMouseEvent *event){
         int yoffset=event->pos().y()-MouseLeftButtonPos.y();
         //camera.ProcessMouseMovent(xoffset,-yoffset);
         //qDebug()<<xoffset<<" "<<yoffset<<"\n";
-        Map.Position+=QVector3D(xoffset/5000.0,-yoffset/5000.0,0);
+        camera.Position+=QVector3D(-xoffset/10000.0,yoffset/10000.0,0);
         update();
         MouseLeftButtonPos=event->pos();
     }
@@ -73,8 +73,10 @@ void GLWindow::mousePressEvent(QMouseEvent *event){
 
 void GLWindow::wheelEvent(QWheelEvent *event){
     //qDebug()<<event->angleDelta()<<"\n";
-    if(event->angleDelta().y()>0)Map.Size*=1.1;
-    else Map.Size/=1.1;
+    if(event->angleDelta().y()>0)camera.Position.setZ(camera.Position.z()/1.1);
+    else camera.Position.setZ(camera.Position.z()*1.1);
+    // if(event->angleDelta().y()>0)Map.Size*=1.1;
+    // else Map.Size/=1.1;
     update();
 }
 
@@ -98,18 +100,9 @@ void GLWindow::keyReleaseEvent(QKeyEvent *event){
 }
 
 void GLWindow::Init(){
+    camera=Camera(QVector3D(0.0,0.0,5));
     res=new ResourceManager();
     LoadShaders();
-//    Shader shader=res->GetShader("sprite");
-//    Renderer=new SpriteRenderer(shader);
-//    shader=res->GetShader("cube");
-//    CubeRenderer=new SpriteCubeRenderer(shader);
-//    shader=res->GetShader("prism");
-//    vector<QVector2D> vertexs={QVector2D(0,0),QVector2D(0.5,0.5),QVector2D(1,0),QVector2D(1,1),QVector2D(0,1)};
-//    PrimRenderer=new staticSpritePrismRenderer(shader,vertexs,1.0,QVector3D(1.0,0.0,1.0),QVector3D(0.0,0.0,0.0));
-//    PolygonRenderer=new staticSpritePolygonRenderer(shader,vertexs,QVector3D(1.0,0.0,0.0));
-//    staticLinestripeSpriteRenderer *p=new staticLinestripeSpriteRenderer(shader,vertexs);
-//    LinestripeRendererGroup.push_back(p);
 
     textRenderer=new TextRenderer(res->GetShader("text"));
     string s="宋";
@@ -117,7 +110,7 @@ void GLWindow::Init(){
     textRenderer->Load(s,font,128);
 
     LoadTextures();
-    Map.Load("map.xml",res->GetShader("prism"),QVector3D(-0.05,-0.05,-5),QVector3D(0.1,0.1,0.02));
+    Map.Load("map.xml",res->GetShader("prism"),QVector3D(-0.05,-0.05,0),QVector3D(0.1,0.1,0.02));
 }
 
 void GLWindow::LoadShaders(){
@@ -150,22 +143,17 @@ void GLWindow::Update(){
 }
 
 void GLWindow::Render(){
-    //Texture2D texture=res->GetTexture2D("diamond");
-    //Renderer->Draw(texture,QVector2D(0,0),QVector2D(100,100));
-    //PolygonRenderer->Draw(QVector2D(50,50),QVector2D(50,50));
-//    PrimRenderer->Draw(QVector3D(0.1,0.1,-20),QVector3D(0.1,0.1,0.1),camera,
-//                        camera.GetProjectionMatrix(width(),height()));
-//    Texture2D texture=res->GetTexture2D("diamond");
-//    CubeRenderer->Draw(texture,QVector3D(0.1,0.1,-20),QVector3D(0.1,0.1,0.1),camera,
-//                       camera.GetProjectionMatrix(width(),height()),1.0f);
     Map.Render(camera,camera.GetProjectionMatrix(width(),height()));
-
-    //textRenderer->Texttexture=res->GetTexture2D("stone");
-    //textRenderer->RenderText(Map.Position,Map.Size,camera,camera.GetProjectionMatrix(width(),height()),QVector3D(0.0,0.0,0.0));
 }
 
 void GLWindow::LoadFile(const char* file){
+    Map.Load(file,res->GetShader("prism"),QVector3D(-0.05,-0.05,0),QVector3D(0.1,0.1,0.02));
+    update();
+}
 
-    Map.Load(file,res->GetShader("prism"),QVector3D(-0.05,-0.05,-5),QVector3D(0.1,0.1,0.02));
+void GLWindow::ChangeCameraMode(bool mode){
+    _cameramode=mode;
+    if(mode)camera=Camera(QVector3D(0,0,1),QVector3D(0,0,1));
+    else camera=Camera(QVector3D(0,0,5));
     update();
 }

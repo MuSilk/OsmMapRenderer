@@ -5,8 +5,6 @@
 #include "Renderer/staticspritelinestripe.h"
 #include "Renderer/staticspritepolygon.h"
 #include "Object/ObjectMap/objectbuilding.h"
-#include "Object/ObjectMap/objectplane.h"
-#include "Object/ObjectMap/objectway.h"
 
 class ObjectMap
 {
